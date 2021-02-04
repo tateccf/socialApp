@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Page from '../components/Page';
+import { db } from '../firebase';
 
 const CreatePost = () => {
-  const handleSubmit = e => {
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
+
+  const handleSubmit = async e => {
     e.preventDefault();
-    console.log('Create Post');
+
+    try {
+      const res = await db.collection('posts').add({
+        title,
+        body,
+        createdBy: localStorage.getItem('socialappUserId'),
+      });
+
+      console.log(res.id);
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   return (
@@ -22,6 +37,8 @@ const CreatePost = () => {
             type="text"
             placeholder=""
             autoComplete="off"
+            value={title}
+            onChange={e => setTitle(e.target.value)}
           />
         </div>
 
@@ -34,6 +51,8 @@ const CreatePost = () => {
             id="post-body"
             className="body-content tall-textarea form-control"
             type="text"
+            value={body}
+            onChange={e => setBody(e.target.value)}
           ></textarea>
         </div>
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { auth } from '../firebase';
 
 const HeaderLoggedOut = ({ setLoggedIn }) => {
@@ -22,7 +22,7 @@ const HeaderLoggedOut = ({ setLoggedIn }) => {
         inputsForm.email,
         inputsForm.password
       );
-      localStorage.setItem('socialappToken', res.user.uid);
+      localStorage.setItem('socialappUserId', res.user.uid);
       localStorage.setItem('socialappEmail', res.user.email);
       localStorage.setItem('socialappUsername', res.user.displayName);
 

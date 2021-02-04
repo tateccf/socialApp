@@ -19,6 +19,7 @@ const HeaderLoggedIn = ({ setLoggedIn }) => {
       </span>
       <Link to="#" className="mr-2">
         <img
+          alt="avatar"
           className="small-header-avatar"
           src={gravatarUrl(localStorage.getItem('socialappEmail'), { size: 200 })}
         />
