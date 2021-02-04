@@ -1,11 +1,11 @@
 import React from 'react';
-import Container from '../components/Container';
+import Page from '../components/Page';
 
 const About = () => {
   return (
-    <Container>
+    <Page title="About Us">
       <h2>About Us</h2>
-      <p class="lead text-muted">
+      <p className="lead text-muted">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis dolorum
         labore quisquam vel id dicta fuga! Ducimus, quo. Dolore commodi aliquid error
         veritatis consequuntur, excepturi cumque fuga eum incidunt doloremque?
@@ -24,7 +24,7 @@ const About = () => {
         quo dolorum sapiente temporibus facere non repellendus consequatur
         cupiditate!
       </p>
-    </Container>
+    </Page>
   );
 };
 
