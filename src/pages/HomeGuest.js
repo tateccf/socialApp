@@ -22,6 +22,7 @@ const HomeGuest = () => {
         inputsForm.email,
         inputsForm.password
       );
+      res.displayName = 'Rafa';
       console.log(res);
     } catch (err) {
       console.log(err.message);
