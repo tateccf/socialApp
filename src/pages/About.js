@@ -1,8 +1,9 @@
 import React from 'react';
+import Container from '../components/Container';
 
 const About = () => {
   return (
-    <div class="container container--narrow py-md-5">
+    <Container>
       <h2>About Us</h2>
       <p class="lead text-muted">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis dolorum
@@ -23,7 +24,7 @@ const About = () => {
         quo dolorum sapiente temporibus facere non repellendus consequatur
         cupiditate!
       </p>
-    </div>
+    </Container>
   );
 };
 

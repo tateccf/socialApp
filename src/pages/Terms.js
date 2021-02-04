@@ -1,8 +1,9 @@
 import React from 'react';
+import Container from '../components/Container';
 
 const Terms = () => {
   return (
-    <div class="container container--narrow py-md-5">
+    <Container>
       <h2>Our Terms &amp; Conditions</h2>
       <p class="lead text-muted">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis dolorum
@@ -29,7 +30,7 @@ const Terms = () => {
         distinctio atque sint earum? Temporibus, voluptas aspernatur aliquam nisi sed
         harum laborum, nemo odio animi officia quisquam. Veniam, natus reprehenderit.
       </p>
-    </div>
+    </Container>
   );
 };
 
