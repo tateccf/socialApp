@@ -10,6 +10,7 @@ import HomeGuest from './pages/HomeGuest';
 import About from './pages/About';
 import Terms from './pages/Terms';
 import Home from './pages/Home';
+import CreatePost from './components/CreatePost';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(
@@ -27,6 +28,9 @@ const App = () => {
         </Route>
         <Route path="/terms" exact>
           <Terms />
+        </Route>
+        <Route path="/new-post">
+          <CreatePost />
         </Route>
       </Switch>
       <Footer />
