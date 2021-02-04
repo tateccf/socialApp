@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 // ==== MY COMPONENTS ====
@@ -9,15 +9,25 @@ import Footer from './components/Footer';
 import HomeGuest from './pages/HomeGuest';
 import About from './pages/About';
 import Terms from './pages/Terms';
+import Home from './pages/Home';
 
 const App = () => {
+  const [loggedIn, setLoggedIn] = useState(
+    Boolean(localStorage.getItem('socialappToken'))
+  );
   return (
     <Router>
-      <Header />
+      <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       <Switch>
-        <Route path="/" exact component={HomeGuest} />
-        <Route path="/about-us" component={About} />
-        <Route path="/terms" component={Terms} />
+        <Route path="/" exact>
+          {loggedIn ? <Home /> : <HomeGuest />}
+        </Route>
+        <Route path="/about-us" exact>
+          <About />
+        </Route>
+        <Route path="/terms" exact>
+          <Terms />
+        </Route>
       </Switch>
       <Footer />
     </Router>
