@@ -4,7 +4,11 @@ import { auth } from '../firebase';
 
 const HomeGuest = () => {
   // State of Email and Password
-  const [inputsForm, setInputsForm] = useState({ email: '', password: '' });
+  const [inputsForm, setInputsForm] = useState({
+    email: '',
+    password: '',
+    username: '',
+  });
 
   // Set State with new values when some of the input changes
   const handleFormChange = ({ target }) => {
@@ -22,13 +26,15 @@ const HomeGuest = () => {
         inputsForm.email,
         inputsForm.password
       );
-      res.displayName = 'Rafa';
-      console.log(res);
+
+      // Once the user is created, update the users profile with the provided username
+
+      await res.user.updateProfile({ displayName: inputsForm.username });
     } catch (err) {
       console.log(err.message);
     }
     // Clear the form inputs
-    setInputsForm({ email: '', password: '' });
+    setInputsForm({ email: '', password: '', username: '' });
   };
 
   return (
@@ -45,6 +51,21 @@ const HomeGuest = () => {
         </div>
         <div className="col-lg-5 pl-lg-5 pb-3 py-lg-5">
           <form autoComplete="off" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="username-register" className="text-muted mb-1">
+                <small>Username</small>
+              </label>
+              <input
+                id="username-register"
+                name="username"
+                className="form-control"
+                type="text"
+                placeholder="Pick an username"
+                autoComplete="off"
+                onChange={handleFormChange}
+                value={inputsForm.username}
+              />
+            </div>
             <div className="form-group">
               <label htmlFor="email-register" className="text-muted mb-1">
                 <small>Email</small>

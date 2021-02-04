@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { auth } from '../firebase';
 
-const HeaderLoggedOut = () => {
+const HeaderLoggedOut = ({ setLoggedIn }) => {
   // State of Email and Password
   const [inputsForm, setInputsForm] = useState({ email: '', password: '' });
 
@@ -22,7 +22,11 @@ const HeaderLoggedOut = () => {
         inputsForm.email,
         inputsForm.password
       );
-      console.log(res);
+      localStorage.setItem('socialappToken', res.user.uid);
+      localStorage.setItem('socialappEmail', res.user.email);
+      localStorage.setItem('socialappUsername', res.user.displayName);
+
+      setLoggedIn(true);
     } catch (err) {
       console.log(err.message);
     }
