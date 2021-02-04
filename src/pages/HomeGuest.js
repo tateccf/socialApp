@@ -16,7 +16,7 @@ const HomeGuest = () => {
         <div className="col-lg-5 pl-lg-5 pb-3 py-lg-5">
           <form autoComplete="off">
             <div className="form-group">
-              <label for="username-register" className="text-muted mb-1">
+              <label htmlFor="username-register" className="text-muted mb-1">
                 <small>Username</small>
               </label>
               <input
@@ -29,7 +29,7 @@ const HomeGuest = () => {
               />
             </div>
             <div className="form-group">
-              <label for="email-register" className="text-muted mb-1">
+              <label htmlFor="email-register" className="text-muted mb-1">
                 <small>Email</small>
               </label>
               <input
@@ -42,7 +42,7 @@ const HomeGuest = () => {
               />
             </div>
             <div className="form-group">
-              <label for="password-register" className="text-muted mb-1">
+              <label htmlFor="password-register" className="text-muted mb-1">
                 <small>Password</small>
               </label>
               <input
