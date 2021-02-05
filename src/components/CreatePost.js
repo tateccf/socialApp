@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Page from '../components/Page';
 import { db } from '../firebase';
 
-const CreatePost = () => {
+const CreatePost = ({ addFlashMessage }) => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
@@ -19,8 +19,9 @@ const CreatePost = () => {
         createdBy: localStorage.getItem('socialappUserId'),
       });
 
+      //Show a Flash message
+      addFlashMessage('Post Created Successfully!');
       // Redirect to the new post URL
-
       history.push(`/post/${res.id}`);
     } catch (err) {
       console.log(err.message);
