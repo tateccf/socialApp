@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import DispatchContext from '../context/DispatchContext';
 import { auth } from '../firebase';
 
-const HeaderLoggedOut = ({ setLoggedIn }) => {
+const HeaderLoggedOut = () => {
+  const appDispatch = useContext(DispatchContext);
   // State of Email and Password
   const [inputsForm, setInputsForm] = useState({ email: '', password: '' });
 
@@ -26,7 +28,7 @@ const HeaderLoggedOut = ({ setLoggedIn }) => {
       localStorage.setItem('socialappEmail', res.user.email);
       localStorage.setItem('socialappUsername', res.user.displayName);
 
-      setLoggedIn(true);
+      appDispatch({ type: 'LOGIN' });
     } catch (err) {
       console.log(err.message);
     }

@@ -11,7 +11,7 @@ const ViewSinglePost = () => {
           <Link to="#" className="text-primary mr-2" title="Edit">
             <i className="fas fa-edit"></i>
           </Link>
-          <Link className="delete-post-button text-danger" title="Delete">
+          <Link to="#" className="delete-post-button text-danger" title="Delete">
             <i className="fas fa-trash"></i>
           </Link>
         </span>
@@ -25,7 +25,7 @@ const ViewSinglePost = () => {
             src="https://gravatar.com/avatar/b9408a09298632b5151200f3449434ef?s=128"
           />
         </Link>
-        Posted by <a to="#">brad</a> on 2/10/2020
+        Posted by <Link to="#">brad</Link> on 2/10/2020
       </p>
 
       <div className="body-content">

@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Page from '../components/Page';
+import DispatchContext from '../context/DispatchContext';
 import { db } from '../firebase';
 
-const CreatePost = ({ addFlashMessage }) => {
+const CreatePost = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-
+  const appDispatch = useContext(DispatchContext);
   const history = useHistory();
 
   const handleSubmit = async e => {
@@ -20,7 +21,10 @@ const CreatePost = ({ addFlashMessage }) => {
       });
 
       //Show a Flash message
-      addFlashMessage('Post Created Successfully!');
+      appDispatch({
+        type: 'ADD_FLASH_MESSAGE',
+        payload: 'Post Created Successfully!',
+      });
       // Redirect to the new post URL
       history.push(`/post/${res.id}`);
     } catch (err) {

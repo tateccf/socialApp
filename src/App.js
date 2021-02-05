@@ -1,5 +1,13 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+// ==== CONTEXTS ====
+import StateContext from './context/StateContext';
+import DispatchContext from './context/DispatchContext';
+
+// ==== REDUCERS ====
+
+import { appReducer, initialState } from './reducers/appReducer';
 
 // ==== MY COMPONENTS ====
 import Header from './components/Header';
@@ -15,40 +23,35 @@ import CreatePost from './components/CreatePost';
 import ViewSinglePost from './pages/ViewSinglePost';
 
 const App = () => {
-  const [loggedIn, setLoggedIn] = useState(
-    Boolean(localStorage.getItem('socialappToken'))
-  );
-
-  const [flashMessages, setFlashMessage] = useState([]);
-
-  //Every time we pass a new message, the component will rerender for 5 seconds with the new message
-  function addFlashMessage(msg) {
-    setFlashMessage(prev => [...prev, msg]);
-  }
+  const [state, dispatch] = useReducer(appReducer, initialState);
 
   return (
-    <Router>
-      <FlashMessage messages={flashMessages} />
-      <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
-      <Switch>
-        <Route path="/" exact>
-          {loggedIn ? <Home /> : <HomeGuest />}
-        </Route>
-        <Route path="/about-us" exact>
-          <About />
-        </Route>
-        <Route path="/terms" exact>
-          <Terms />
-        </Route>
-        <Route path="/new-post">
-          <CreatePost addFlashMessage={addFlashMessage} />
-        </Route>
-        <Route path="/post/:id">
-          <ViewSinglePost />
-        </Route>
-      </Switch>
-      <Footer />
-    </Router>
+    <StateContext.Provider value={state}>
+      <DispatchContext.Provider value={dispatch}>
+        <Router>
+          <FlashMessage messages={state.flashMessages} />
+          <Header />
+          <Switch>
+            <Route path="/" exact>
+              {state.loggedIn ? <Home /> : <HomeGuest />}
+            </Route>
+            <Route path="/about-us" exact>
+              <About />
+            </Route>
+            <Route path="/terms" exact>
+              <Terms />
+            </Route>
+            <Route path="/new-post">
+              <CreatePost />
+            </Route>
+            <Route path="/post/:id">
+              <ViewSinglePost />
+            </Route>
+          </Switch>
+          <Footer />
+        </Router>
+      </DispatchContext.Provider>
+    </StateContext.Provider>
   );
 };
 

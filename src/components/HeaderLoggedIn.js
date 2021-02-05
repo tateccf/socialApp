@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import gravatarUrl from 'gravatar-url';
+import DispatchContext from '../context/DispatchContext';
 
-const HeaderLoggedIn = ({ setLoggedIn }) => {
+const HeaderLoggedIn = () => {
+  const appDispatch = useContext(DispatchContext);
   //When clicking LogOut button, we set the loggedIn state to false and we clean the local Storage
   const handleLogOut = () => {
-    setLoggedIn(false);
+    appDispatch({ type: 'LOGOUT' });
     localStorage.clear();
   };
   return (
