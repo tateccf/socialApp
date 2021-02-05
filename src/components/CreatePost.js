@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Page from '../components/Page';
 import { db } from '../firebase';
 
 const CreatePost = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+
+  const history = useHistory();
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -16,7 +19,9 @@ const CreatePost = () => {
         createdBy: localStorage.getItem('socialappUserId'),
       });
 
-      console.log(res.id);
+      // Redirect to the new post URL
+
+      history.push(`/post/${res.id}`);
     } catch (err) {
       console.log(err.message);
     }

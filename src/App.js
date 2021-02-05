@@ -11,6 +11,7 @@ import About from './pages/About';
 import Terms from './pages/Terms';
 import Home from './pages/Home';
 import CreatePost from './components/CreatePost';
+import ViewSinglePost from './pages/ViewSinglePost';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(
@@ -31,6 +32,9 @@ const App = () => {
         </Route>
         <Route path="/new-post">
           <CreatePost />
+        </Route>
+        <Route path="/post/:id">
+          <ViewSinglePost />
         </Route>
       </Switch>
       <Footer />
