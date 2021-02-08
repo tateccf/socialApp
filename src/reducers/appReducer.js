@@ -2,7 +2,7 @@ const initialState = {
   loggedIn: Boolean(localStorage.getItem('socialappUserId')),
   flashMessages: [],
   user: {
-    useId: localStorage.getItem('socialappUserId'),
+    userId: localStorage.getItem('socialappUserId'),
     username: localStorage.getItem('socialappUsername'),
     userEmail: localStorage.getItem('socialappEmail'),
   },

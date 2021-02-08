@@ -3,11 +3,13 @@ import Page from '../components/Page';
 import gravatarUrl from 'gravatar-url';
 import { db } from '../firebase';
 import { useParams } from 'react-router-dom';
+import ProfilePosts from '../components/ProfilePosts';
 
 const Profile = () => {
   const { userEmail } = useParams();
 
   const [user, setUser] = useState({
+    userId: '',
     userName: '...',
     email: 'example@gmail.com',
     counts: { postCount: 0, followerCount: 0, followingCount: 0 },
@@ -22,6 +24,7 @@ const Profile = () => {
 
         // Set the user who matches the email in the URL of the page
         users.docs.forEach(doc => {
+          console.log(doc.data());
           if (doc.data().email === userEmail) {
             setUser({
               ...doc.data(),
@@ -35,7 +38,6 @@ const Profile = () => {
     }
     getUser();
   }, []);
-
   console.log(user);
 
   return (
@@ -59,33 +61,7 @@ const Profile = () => {
           Following: {user.counts.followingCount}
         </a>
       </div>
-
-      <div className="list-group">
-        <a href="#" className="list-group-item list-group-item-action">
-          <img
-            className="avatar-tiny"
-            src="https://gravatar.com/avatar/b9408a09298632b5151200f3449434ef?s=128"
-          />{' '}
-          <strong>Example Post #1</strong>
-          <span className="text-muted small">on 2/10/2020 </span>
-        </a>
-        <a href="#" className="list-group-item list-group-item-action">
-          <img
-            className="avatar-tiny"
-            src="https://gravatar.com/avatar/b9408a09298632b5151200f3449434ef?s=128"
-          />{' '}
-          <strong>Example Post #2</strong>
-          <span className="text-muted small">on 2/10/2020 </span>
-        </a>
-        <a href="#" className="list-group-item list-group-item-action">
-          <img
-            className="avatar-tiny"
-            src="https://gravatar.com/avatar/b9408a09298632b5151200f3449434ef?s=128"
-          />{' '}
-          <strong>Example Post #3</strong>
-          <span className="text-muted small">on 2/10/2020 </span>
-        </a>
-      </div>
+      {user.userId ? <ProfilePosts user={user} /> : 'Loading...'}
     </Page>
   );
 };

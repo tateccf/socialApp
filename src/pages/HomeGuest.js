@@ -35,6 +35,7 @@ const HomeGuest = () => {
       await db.collection('users').doc(res.user.uid).set({
         userName: inputsForm.username,
         email: inputsForm.email,
+        userId: res.user.uid,
       });
     } catch (err) {
       console.log(err.message);
