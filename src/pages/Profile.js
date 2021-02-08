@@ -25,7 +25,6 @@ const Profile = () => {
 
         // Set the user who matches the email in the URL of the page
         users.docs.forEach(doc => {
-          console.log(doc.data());
           if (doc.data().email === userEmail) {
             setUser({
               ...doc.data(),
@@ -39,7 +38,6 @@ const Profile = () => {
     }
     getUser();
   }, [userEmail]);
-  console.log(user);
 
   return (
     <Page title="Your Profile">

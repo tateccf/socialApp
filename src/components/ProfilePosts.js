@@ -13,7 +13,7 @@ const ProfilePosts = props => {
     async function fetchPosts() {
       try {
         //Fetch posts by UserId
-        console.log(userId);
+
         const res = await db.collection('posts').where('createdBy', '==', userId);
         const posts = await res.get();
 

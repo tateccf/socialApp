@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import Page from '../components/Page';
 import { db } from '../firebase';
 import gravatarUrl from 'gravatar-url';
+import { Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+import Page from '../components/Page';
 import Spinner from '../components/Spinner';
 
 const ViewSinglePost = () => {
@@ -56,7 +57,21 @@ const ViewSinglePost = () => {
         Posted by <Link to={`/profile/${post.authorEmail}`}>{post.author}</Link>
       </p>
 
-      <div className="body-content">{post.body}</div>
+      <div className="body-content">
+        <ReactMarkdown
+          allowedTypes={[
+            'paragraph',
+            'strong',
+            'emphasis',
+            'text',
+            'heading',
+            'list',
+            'listItem',
+          ]}
+        >
+          {post.body}
+        </ReactMarkdown>
+      </div>
     </Page>
   );
 };
