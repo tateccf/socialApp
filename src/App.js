@@ -23,6 +23,7 @@ import CreatePost from './components/CreatePost';
 import ViewSinglePost from './pages/ViewSinglePost';
 import Profile from './pages/Profile';
 import EditPost from './pages/EditPost';
+import NotFound from './pages/NotFound';
 
 const App = () => {
   const [appState, appDispatch] = useReducer(appReducer, initialState);
@@ -67,6 +68,9 @@ const App = () => {
             </Route>
             <Route path="/profile/:userEmail">
               <Profile />
+            </Route>
+            <Route>
+              <NotFound />
             </Route>
           </Switch>
           <Footer />

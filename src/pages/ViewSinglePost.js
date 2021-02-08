@@ -7,6 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import ReactTooltip from 'react-tooltip';
 import Page from '../components/Page';
 import Spinner from '../components/Spinner';
+import NotFound from '../pages/NotFound';
 
 const ViewSinglePost = () => {
   // Get the post ID from the page URL
@@ -14,6 +15,7 @@ const ViewSinglePost = () => {
 
   const [post, setPost] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
 
   // Fetch post by ID when component renders first time
   useEffect(() => {
@@ -22,7 +24,9 @@ const ViewSinglePost = () => {
         const res = await db.collection('posts').doc(id).get();
         const post = res.data();
 
-        setPost(post);
+        if (!res.exists) return setNotFound(true);
+
+        if (!res.empty) setPost(post);
       } catch (err) {
         console.log(err.message);
       }
@@ -30,7 +34,7 @@ const ViewSinglePost = () => {
     }
     fetchPost();
   }, [id]);
-
+  if (notFound) return <NotFound />;
   if (isLoading) return <Spinner />;
 
   return (

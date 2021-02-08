@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import { db } from '../firebase';
 import Page from '../components/Page';
 import Spinner from '../components/Spinner';
+import NotFound from './NotFound';
 
 const EditPost = () => {
   // Get the post ID from the page URL
@@ -11,6 +12,7 @@ const EditPost = () => {
   const [post, setPost] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [notFound, setNotFound] = useState(false);
 
   // Send update request to firebase when form is submitted
 
@@ -52,6 +54,7 @@ const EditPost = () => {
     async function fetchPost() {
       try {
         const res = await db.collection('posts').doc(id).get();
+        if (!res.exists) return setNotFound(true);
         const post = res.data();
 
         setPost(post);
@@ -62,11 +65,15 @@ const EditPost = () => {
     }
     fetchPost();
   }, [id]);
-
+  if (notFound) return <NotFound />;
   if (isLoading) return <Spinner />;
 
   return (
     <Page title="Edit Post">
+      <Link className="small font-weight-bold" to={`/post/${id}`}>
+        {' '}
+        &laquo; Back to post
+      </Link>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="post-title" className="text-muted mb-1">
