@@ -21,6 +21,7 @@ import Terms from './pages/Terms';
 import Home from './pages/Home';
 import CreatePost from './components/CreatePost';
 import ViewSinglePost from './pages/ViewSinglePost';
+import Profile from './pages/Profile';
 
 const App = () => {
   const [appState, appDispatch] = useReducer(appReducer, initialState);
@@ -28,13 +29,10 @@ const App = () => {
 
   useEffect(() => {
     if (appState.loggedIn) {
-      localStorage.setItem('socialappUserId', appState.user.uid);
-      localStorage.setItem('socialappEmail', appState.user.email);
-      localStorage.setItem('socialappUsername', appState.user.displayName);
+      localStorage.setItem('socialappUserId', appState.user.userId);
+      localStorage.setItem('socialappEmail', appState.user.userEmail);
+      localStorage.setItem('socialappUsername', appState.user.username);
     }
-    return () => {
-      localStorage.clear();
-    };
   }, [appState.loggedIn]);
 
   return (
@@ -58,6 +56,9 @@ const App = () => {
             </Route>
             <Route path="/post/:id">
               <ViewSinglePost />
+            </Route>
+            <Route path="/profile/:userEmail">
+              <Profile />
             </Route>
           </Switch>
           <Footer />

@@ -2,9 +2,9 @@ const initialState = {
   loggedIn: Boolean(localStorage.getItem('socialappUserId')),
   flashMessages: [],
   user: {
-    useId: localStorage.getItem('complexappUserId'),
-    username: localStorage.getItem('complexappUsername'),
-    userEmail: localStorage.getItem('complexappEmail'),
+    useId: localStorage.getItem('socialappUserId'),
+    username: localStorage.getItem('socialappUsername'),
+    userEmail: localStorage.getItem('socialappEmail'),
   },
 };
 function appReducer(state, action) {

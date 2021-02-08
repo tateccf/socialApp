@@ -20,7 +20,7 @@ const HeaderLoggedIn = () => {
         <i className="fas fa-comment"></i>
         <span className="chat-count-badge text-white"> </span>
       </span>
-      <Link to="#" className="mr-2">
+      <Link to={`/profile/${appState.user.userEmail}`} className="mr-2">
         <img
           alt="avatar"
           className="small-header-avatar"
