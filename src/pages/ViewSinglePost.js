@@ -39,7 +39,7 @@ const ViewSinglePost = () => {
         <h2>{post.title}</h2>
         <span className="pt-2">
           <Link
-            to="#"
+            to={`/post/${id}/edit/`}
             data-tip="Edit Post"
             data-for="edit"
             className="text-primary mr-2"

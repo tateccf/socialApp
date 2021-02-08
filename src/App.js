@@ -22,6 +22,7 @@ import Home from './pages/Home';
 import CreatePost from './components/CreatePost';
 import ViewSinglePost from './pages/ViewSinglePost';
 import Profile from './pages/Profile';
+import EditPost from './pages/EditPost';
 
 const App = () => {
   const [appState, appDispatch] = useReducer(appReducer, initialState);
@@ -58,8 +59,11 @@ const App = () => {
             <Route path="/new-post">
               <CreatePost />
             </Route>
-            <Route path="/post/:id">
+            <Route path="/post/:id" exact>
               <ViewSinglePost />
+            </Route>
+            <Route path="/post/:id/edit" exact>
+              <EditPost />
             </Route>
             <Route path="/profile/:userEmail">
               <Profile />
