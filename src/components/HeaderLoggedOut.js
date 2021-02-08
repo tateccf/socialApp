@@ -24,11 +24,11 @@ const HeaderLoggedOut = () => {
         inputsForm.email,
         inputsForm.password
       );
-      localStorage.setItem('socialappUserId', res.user.uid);
-      localStorage.setItem('socialappEmail', res.user.email);
-      localStorage.setItem('socialappUsername', res.user.displayName);
+      // localStorage.setItem('socialappUserId', res.user.uid);
+      // localStorage.setItem('socialappEmail', res.user.email);
+      // localStorage.setItem('socialappUsername', res.user.displayName);
 
-      appDispatch({ type: 'LOGIN' });
+      appDispatch({ type: 'LOGIN', payload: res.user });
     } catch (err) {
       console.log(err.message);
     }

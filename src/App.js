@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 // ==== CONTEXTS ====
@@ -23,17 +23,29 @@ import CreatePost from './components/CreatePost';
 import ViewSinglePost from './pages/ViewSinglePost';
 
 const App = () => {
-  const [state, dispatch] = useReducer(appReducer, initialState);
+  const [appState, appDispatch] = useReducer(appReducer, initialState);
+  console.log(appState);
+
+  useEffect(() => {
+    if (appState.loggedIn) {
+      localStorage.setItem('socialappUserId', appState.user.uid);
+      localStorage.setItem('socialappEmail', appState.user.email);
+      localStorage.setItem('socialappUsername', appState.user.displayName);
+    }
+    return () => {
+      localStorage.clear();
+    };
+  }, [appState.loggedIn]);
 
   return (
-    <StateContext.Provider value={state}>
-      <DispatchContext.Provider value={dispatch}>
+    <StateContext.Provider value={appState}>
+      <DispatchContext.Provider value={appDispatch}>
         <Router>
-          <FlashMessage messages={state.flashMessages} />
+          <FlashMessage messages={appState.flashMessages} />
           <Header />
           <Switch>
             <Route path="/" exact>
-              {state.loggedIn ? <Home /> : <HomeGuest />}
+              {appState.loggedIn ? <Home /> : <HomeGuest />}
             </Route>
             <Route path="/about-us" exact>
               <About />

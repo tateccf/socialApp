@@ -2,13 +2,14 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import gravatarUrl from 'gravatar-url';
 import DispatchContext from '../context/DispatchContext';
+import StateContext from '../context/StateContext';
 
 const HeaderLoggedIn = () => {
   const appDispatch = useContext(DispatchContext);
+  const appState = useContext(StateContext);
   //When clicking LogOut button, we set the loggedIn state to false and we clean the local Storage
   const handleLogOut = () => {
     appDispatch({ type: 'LOGOUT' });
-    localStorage.clear();
   };
   return (
     <div className="flex-row my-3 my-md-0">
@@ -23,7 +24,7 @@ const HeaderLoggedIn = () => {
         <img
           alt="avatar"
           className="small-header-avatar"
-          src={gravatarUrl(localStorage.getItem('socialappEmail'), { size: 200 })}
+          src={gravatarUrl(appState.user.userEmail, { size: 200 })}
         />
       </Link>
       <Link className="btn btn-sm btn-success mr-2" to="/new-post">

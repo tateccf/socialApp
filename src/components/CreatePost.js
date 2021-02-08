@@ -2,12 +2,14 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Page from '../components/Page';
 import DispatchContext from '../context/DispatchContext';
+import StateContext from '../context/StateContext';
 import { db } from '../firebase';
 
 const CreatePost = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const appDispatch = useContext(DispatchContext);
+  const appState = useContext(StateContext);
   const history = useHistory();
 
   const handleSubmit = async e => {
@@ -17,7 +19,7 @@ const CreatePost = () => {
       const res = await db.collection('posts').add({
         title,
         body,
-        createdBy: localStorage.getItem('socialappUserId'),
+        createdBy: appState.user.userId,
       });
 
       //Show a Flash message
