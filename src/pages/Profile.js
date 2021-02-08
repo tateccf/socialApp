@@ -37,13 +37,17 @@ const Profile = () => {
       }
     }
     getUser();
-  }, []);
+  }, [userEmail]);
   console.log(user);
 
   return (
     <Page title="Your Profile">
       <h2>
-        <img className="avatar-small" src={gravatarUrl(user.email, { size: 200 })} />
+        <img
+          alt="user avatar"
+          className="avatar-small"
+          src={gravatarUrl(user.email, { size: 200 })}
+        />
         {user.userName}
         <button className="btn btn-primary btn-sm ml-2">
           Follow <i className="fas fa-user-plus"></i>
@@ -51,13 +55,13 @@ const Profile = () => {
       </h2>
 
       <div className="profile-nav nav nav-tabs pt-2 mb-4">
-        <a href="#" className="active nav-item nav-link">
+        <a to="#" className="active nav-item nav-link">
           Posts: {user.counts.postCount}
         </a>
-        <a href="#" className="nav-item nav-link">
+        <a to="#" className="nav-item nav-link">
           Followers: {user.counts.followerCount}
         </a>
-        <a href="#" className="nav-item nav-link">
+        <a to="#" className="nav-item nav-link">
           Following: {user.counts.followingCount}
         </a>
       </div>

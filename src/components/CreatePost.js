@@ -14,12 +14,14 @@ const CreatePost = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log(title, body, appState.user.userId);
+
     try {
       const res = await db.collection('posts').add({
         title,
         body,
         createdBy: appState.user.userId,
+        author: appState.user.username,
+        authorEmail: appState.user.userEmail,
       });
 
       //Show a Flash message

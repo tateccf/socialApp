@@ -25,7 +25,6 @@ import Profile from './pages/Profile';
 
 const App = () => {
   const [appState, appDispatch] = useReducer(appReducer, initialState);
-  console.log(appState);
 
   useEffect(() => {
     if (appState.loggedIn) {
@@ -33,7 +32,12 @@ const App = () => {
       localStorage.setItem('socialappEmail', appState.user.userEmail);
       localStorage.setItem('socialappUsername', appState.user.username);
     }
-  }, [appState.loggedIn]);
+  }, [
+    appState.loggedIn,
+    appState.user.userId,
+    appState.user.userEmail,
+    appState.user.username,
+  ]);
 
   return (
     <StateContext.Provider value={appState}>

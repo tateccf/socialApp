@@ -10,7 +10,6 @@ const ProfilePosts = props => {
 
   useEffect(() => {
     async function fetchPosts() {
-      if (!posts) return;
       try {
         //Fetch posts by UserId
         console.log(userId);
@@ -27,7 +26,9 @@ const ProfilePosts = props => {
       }
     }
     fetchPosts();
-  }, []);
+  }, [userId]);
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <div className="list-group">
