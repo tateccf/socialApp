@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import gravatarUrl from 'gravatar-url';
+import ReactTooltip from 'react-tooltip';
 import DispatchContext from '../context/DispatchContext';
 import StateContext from '../context/StateContext';
 
@@ -13,20 +14,29 @@ const HeaderLoggedIn = () => {
   };
   return (
     <div className="flex-row my-3 my-md-0">
-      <Link to="#" className="text-white mr-2 header-search-icon">
+      <Link
+        to="#"
+        className="text-white mr-2 header-search-icon"
+        data-tip="Search"
+        data-for="search"
+      >
         <i className="fas fa-search"></i>
       </Link>
-      <span className="mr-2 header-chat-icon text-white">
-        <i className="fas fa-comment"></i>
-        <span className="chat-count-badge text-white"> </span>
-      </span>
-      <Link to={`/profile/${appState.user.userEmail}`} className="mr-2">
+      <ReactTooltip id="search" />
+
+      <Link
+        to={`/profile/${appState.user.userEmail}`}
+        className="mr-2"
+        data-tip="Profile"
+        data-for="profile"
+      >
         <img
           alt="avatar"
           className="small-header-avatar"
           src={gravatarUrl(appState.user.userEmail, { size: 200 })}
         />
       </Link>
+      <ReactTooltip id="profile" />
       <Link className="btn btn-sm btn-success mr-2" to="/new-post">
         Create Post
       </Link>

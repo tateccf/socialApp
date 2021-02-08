@@ -4,6 +4,7 @@ import { db } from '../firebase';
 import gravatarUrl from 'gravatar-url';
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import ReactTooltip from 'react-tooltip';
 import Page from '../components/Page';
 import Spinner from '../components/Spinner';
 
@@ -37,12 +38,26 @@ const ViewSinglePost = () => {
       <div className="d-flex justify-content-between">
         <h2>{post.title}</h2>
         <span className="pt-2">
-          <Link to="#" className="text-primary mr-2" title="Edit">
+          <Link
+            to="#"
+            data-tip="Edit Post"
+            data-for="edit"
+            className="text-primary mr-2"
+            title="Edit"
+          >
             <i className="fas fa-edit"></i>
           </Link>
-          <Link to="#" className="delete-post-button text-danger" title="Delete">
+          <ReactTooltip id="edit" />
+          <Link
+            to="#"
+            data-tip="Delete Post"
+            data-for="delete"
+            className="delete-post-button text-danger"
+            title="Delete"
+          >
             <i className="fas fa-trash"></i>
           </Link>
+          <ReactTooltip id="delete" />
         </span>
       </div>
 
