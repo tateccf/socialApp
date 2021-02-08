@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import gravatarUrl from 'gravatar-url';
 import { Link } from 'react-router-dom';
 import { db } from '../firebase';
+import Spinner from './Spinner';
 
 const ProfilePosts = props => {
   const { email, userId, userName } = props.user;
@@ -28,7 +29,7 @@ const ProfilePosts = props => {
     fetchPosts();
   }, [userId]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Spinner />;
 
   return (
     <div className="list-group">

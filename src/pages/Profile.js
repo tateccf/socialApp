@@ -4,6 +4,7 @@ import gravatarUrl from 'gravatar-url';
 import { db } from '../firebase';
 import { useParams } from 'react-router-dom';
 import ProfilePosts from '../components/ProfilePosts';
+import Spinner from '../components/Spinner';
 
 const Profile = () => {
   const { userEmail } = useParams();
@@ -65,7 +66,7 @@ const Profile = () => {
           Following: {user.counts.followingCount}
         </a>
       </div>
-      {user.userId ? <ProfilePosts user={user} /> : 'Loading...'}
+      {user.userId ? <ProfilePosts user={user} /> : <Spinner />}
     </Page>
   );
 };

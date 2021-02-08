@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Page from '../components/Page';
 import { db } from '../firebase';
 import gravatarUrl from 'gravatar-url';
+import Spinner from '../components/Spinner';
 
 const ViewSinglePost = () => {
   // Get the post ID from the page URL
@@ -28,7 +29,7 @@ const ViewSinglePost = () => {
     fetchPost();
   }, [id]);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Spinner />;
 
   return (
     <Page title="Single Post">
