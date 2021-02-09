@@ -1,5 +1,6 @@
 import React, { useReducer, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
 
 // ==== CONTEXTS ====
 import StateContext from './context/StateContext';
@@ -74,7 +75,14 @@ const App = () => {
               <NotFound />
             </Route>
           </Switch>
-          {appState.isSearchOpen ? <Search /> : null}
+          <CSSTransition
+            timeout={330}
+            in={appState.isSearchOpen}
+            classNames="search-overlay"
+            unmountOnExit
+          >
+            <Search />
+          </CSSTransition>
           <Footer />
         </Router>
       </DispatchContext.Provider>

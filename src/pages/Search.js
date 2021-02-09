@@ -4,14 +4,16 @@ import DispatchContext from '../context/DispatchContext';
 const Search = () => {
   const appDispatch = useContext(DispatchContext);
 
+  // When the Search Component renders, we add an event listener for the ESC key
   useEffect(() => {
-    const ev = document.addEventListener('keyup', searchKeyPressHandler);
+    document.addEventListener('keyup', searchKeyPressHandler);
 
     return () => {
       document.removeEventListener('keyup', searchKeyPressHandler);
     };
   }, []);
 
+  // If we press ESC, we close the Search Overlay
   function searchKeyPressHandler(e) {
     if (e.key === 'Escape') handleCloseSearch();
   }
