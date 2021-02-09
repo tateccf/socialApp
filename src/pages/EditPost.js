@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHistory, useParams, Link } from 'react-router-dom';
+import StateContext from '../context/StateContext';
+import DispatchContext from '../context/DispatchContext';
 import { db } from '../firebase';
 import Page from '../components/Page';
 import Spinner from '../components/Spinner';
@@ -13,6 +15,8 @@ const EditPost = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [notFound, setNotFound] = useState(false);
+  const appState = useContext(StateContext);
+  const appDispatch = useContext(DispatchContext);
 
   // Send update request to firebase when form is submitted
 
@@ -56,6 +60,21 @@ const EditPost = () => {
         const res = await db.collection('posts').doc(id).get();
         if (!res.exists) return setNotFound(true);
         const post = res.data();
+
+        console.log(post.createdBy);
+        console.log(appState.user.userId);
+
+        // Check if the user who wants to edit the post is the owner of the post
+        if (post.createdBy !== appState.user.userId) {
+          //Render a flash message
+
+          appDispatch({
+            type: 'ADD_FLASH_MESSAGE',
+            payload: 'You do not have permission to edit that post.',
+          });
+          // Redirect to homepage
+          history.push('/');
+        }
 
         setPost(post);
       } catch (err) {
