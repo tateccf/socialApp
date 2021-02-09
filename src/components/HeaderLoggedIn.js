@@ -12,6 +12,11 @@ const HeaderLoggedIn = () => {
   const handleLogOut = () => {
     appDispatch({ type: 'LOGOUT' });
   };
+
+  function handleSearchIcon(e) {
+    e.preventDefault();
+    appDispatch({ type: 'OPEN_SEARCH' });
+  }
   return (
     <div className="flex-row my-3 my-md-0">
       <Link
@@ -19,6 +24,7 @@ const HeaderLoggedIn = () => {
         className="text-white mr-2 header-search-icon"
         data-tip="Search"
         data-for="search"
+        onClick={handleSearchIcon}
       >
         <i className="fas fa-search"></i>
       </Link>

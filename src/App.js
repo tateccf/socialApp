@@ -24,6 +24,7 @@ import ViewSinglePost from './pages/ViewSinglePost';
 import Profile from './pages/Profile';
 import EditPost from './pages/EditPost';
 import NotFound from './pages/NotFound';
+import Search from './pages/Search';
 
 const App = () => {
   const [appState, appDispatch] = useReducer(appReducer, initialState);
@@ -73,6 +74,7 @@ const App = () => {
               <NotFound />
             </Route>
           </Switch>
+          {appState.isSearchOpen ? <Search /> : null}
           <Footer />
         </Router>
       </DispatchContext.Provider>

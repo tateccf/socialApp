@@ -6,6 +6,7 @@ const initialState = {
     username: localStorage.getItem('socialappUsername'),
     userEmail: localStorage.getItem('socialappEmail'),
   },
+  isSearchOpen: false,
 };
 function appReducer(state, action) {
   switch (action.type) {
@@ -24,6 +25,10 @@ function appReducer(state, action) {
       return { ...state, loggedIn: false };
     case 'ADD_FLASH_MESSAGE':
       return { ...state, flashMessages: [...state.flashMessages, action.payload] };
+    case 'OPEN_SEARCH':
+      return { ...state, isSearchOpen: true };
+    case 'CLOSE_SEARCH':
+      return { ...state, isSearchOpen: false };
     default:
       return state;
   }
