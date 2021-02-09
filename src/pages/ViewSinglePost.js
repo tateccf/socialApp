@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import StateContext from '../context/StateContext';
+import DispatchContext from '../context/DispatchContext';
 import { db } from '../firebase';
 import gravatarUrl from 'gravatar-url';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import ReactTooltip from 'react-tooltip';
 import Page from '../components/Page';
@@ -14,10 +15,11 @@ const ViewSinglePost = () => {
   // Get the post ID from the page URL
   const { id } = useParams();
   const appState = useContext(StateContext);
+  const appDispatch = useContext(DispatchContext);
   const [post, setPost] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
-
+  const history = useHistory();
   // Fetch post by ID when component renders first time
   useEffect(() => {
     async function fetchPost() {
@@ -35,8 +37,27 @@ const ViewSinglePost = () => {
     }
     fetchPost();
   }, [id]);
-  if (notFound) return <NotFound />;
-  if (isLoading) return <Spinner />;
+
+  async function deleteHandler() {
+    const areYouSure = window.confirm('Do you really want to delete this post?');
+
+    if (areYouSure) {
+      //Send to firebase delete request
+      try {
+        await db.collection('posts').doc(id).delete();
+
+        //If successfully deleted, render a flash message and redirect to homepage
+        appDispatch({
+          type: 'ADD_FLASH_MESSAGE',
+          payload: 'The post has been deleted successfully',
+        });
+
+        history.push('/');
+      } catch (err) {
+        console.log('There was a problem');
+      }
+    }
+  }
 
   function isOwner() {
     if (appState.loggedIn) {
@@ -44,6 +65,8 @@ const ViewSinglePost = () => {
     }
     return false;
   }
+  if (notFound) return <NotFound />;
+  if (isLoading) return <Spinner />;
 
   return (
     <Page title="Single Post">
@@ -64,6 +87,7 @@ const ViewSinglePost = () => {
             </Link>
             <ReactTooltip id="edit" />
             <Link
+              onClick={deleteHandler}
               to="#"
               data-tip="Delete Post"
               data-for="delete"
