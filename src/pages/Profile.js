@@ -16,10 +16,55 @@ const Profile = () => {
   const [user, setUser] = useState({});
   const history = useHistory();
   const [followRequestCount, setFollowRequestCount] = useState(0);
+  const [stopFollowingRequestCount, setStopFollowingRequestCount] = useState(0);
 
   function handleFollowRequest() {
     setFollowRequestCount(followRequestCount + 1);
   }
+
+  function handleStopFollowing() {
+    setStopFollowingRequestCount(stopFollowingRequestCount + 1);
+  }
+
+  useEffect(() => {
+    if (stopFollowingRequestCount === 0) return;
+
+    async function stopFollowing() {
+      // Update in DB the followers of the profile account
+      await db
+        .collection('users')
+        .doc(user.userId)
+        .update({
+          followers: user.followers.filter(foll => foll !== appState.user.userId), //[...user.followers, appState.user.userId],
+        });
+
+      //Update in State
+      setUser(prev => ({
+        ...prev,
+        followers: user.followers.filter(foll => foll !== appState.user.userId),
+      }));
+
+      console.log('UNFOLLOW COMPLETED', user);
+
+      //Update in DBthe following of the logged in account
+      await db
+        .collection('users')
+        .doc(appState.user.userId)
+        .update({
+          following: appState.user.following.filter(foll => foll !== user.userId), //[...appState.user.following, user.userId],
+        });
+
+      const newState = {
+        ...appState.user,
+        following: appState.user.following.filter(foll => foll !== user.userId),
+      };
+
+      appDispatch({ type: 'UPDATE_PROFILE', payload: newState });
+      console.log('UNFOLLOW COMPLETED', newState);
+    }
+
+    stopFollowing();
+  }, [stopFollowingRequestCount]);
 
   useEffect(() => {
     if (followRequestCount === 0) return;
@@ -50,8 +95,6 @@ const Profile = () => {
         ...appState.user,
         following: [...appState.user.following, user.userId],
       };
-
-      console.log(newState);
 
       appDispatch({ type: 'UPDATE_PROFILE', payload: newState });
       history.push(`/profile/${user.userEmail}`);
@@ -99,8 +142,6 @@ const Profile = () => {
     }
   }
 
-  console.log(appState.user);
-
   return (
     <Page title="Your Profile">
       <h2>
@@ -116,6 +157,14 @@ const Profile = () => {
             className="btn btn-primary btn-sm ml-2"
           >
             Follow <i className="fas fa-user-plus"></i>
+          </button>
+        )}
+        {!showFollowButton() && appState.user.following.includes(user.userId) && (
+          <button
+            onClick={handleStopFollowing}
+            className="btn btn-danger btn-sm ml-2"
+          >
+            Stop following <i className="fas fa-user-minus"></i>
           </button>
         )}
       </h2>
