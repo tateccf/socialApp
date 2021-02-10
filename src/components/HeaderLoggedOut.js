@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import DispatchContext from '../context/DispatchContext';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 
 const HeaderLoggedOut = () => {
   const appDispatch = useContext(DispatchContext);
@@ -25,7 +25,9 @@ const HeaderLoggedOut = () => {
         inputsForm.password
       );
 
-      appDispatch({ type: 'LOGIN', payload: res.user });
+      const user = await db.collection('users').doc(res.user.uid).get();
+      console.log(user.data());
+      appDispatch({ type: 'LOGIN', payload: user.data() });
     } catch (err) {
       console.log(err.message);
     }

@@ -27,15 +27,14 @@ const HomeGuest = () => {
         inputsForm.password
       );
 
-      // Once the user is created, update the users profile with the provided username
-      await res.user.updateProfile({ displayName: inputsForm.username });
-
       // We have also to save the user in the Firestore. If we dont do this, we wont we able to fetch the users by email.
 
       await db.collection('users').doc(res.user.uid).set({
         userName: inputsForm.username,
-        email: inputsForm.email,
+        userEmail: inputsForm.email,
         userId: res.user.uid,
+        followers: [],
+        following: [],
       });
     } catch (err) {
       console.log(err.message);

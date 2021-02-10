@@ -5,6 +5,8 @@ const initialState = {
     userId: localStorage.getItem('socialappUserId'),
     username: localStorage.getItem('socialappUsername'),
     userEmail: localStorage.getItem('socialappEmail'),
+    followers: localStorage.getItem('socialappFollowers'),
+    following: localStorage.getItem('socialappFollowing'),
   },
   isSearchOpen: false,
 };
@@ -16,11 +18,16 @@ function appReducer(state, action) {
         ...state,
         loggedIn: true,
         user: {
-          username: action.payload.displayName,
-          userId: action.payload.uid,
-          userEmail: action.payload.email,
+          username: action.payload.userName,
+          userId: action.payload.userId,
+          userEmail: action.payload.userEmail,
+          followers: action.payload.followers,
+          following: action.payload.following,
         },
       };
+    case 'UPDATE_PROFILE':
+      console.log(action.payload);
+      return { ...state, user: action.payload };
     case 'LOGOUT':
       return { ...state, loggedIn: false };
     case 'ADD_FLASH_MESSAGE':

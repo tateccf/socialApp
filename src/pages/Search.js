@@ -17,7 +17,7 @@ const Search = () => {
     const value = target.value;
 
     // Set search term in state
-    setState(prev => ({ ...prev, searchTerm: value }));
+    setState(prev => ({ ...prev, searchTerm: value.trim() }));
   }
 
   // When the Search Component renders, we add an event listener for the ESC key
@@ -64,8 +64,8 @@ const Search = () => {
       //Filter posts if the title or body includes search term
       const postsFiltered = postsArr.filter(post => {
         if (
-          post.title.trim().includes(state.searchTerm) ||
-          post.body.trim().includes(state.searchTerm)
+          post.title.trim().includes(state.searchTerm.trim()) ||
+          post.body.trim().includes(state.searchTerm.trim())
         ) {
           return { ...post, id: post.id };
         }

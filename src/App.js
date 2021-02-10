@@ -1,6 +1,7 @@
 import React, { useReducer, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
+import { db } from './firebase';
 
 // ==== CONTEXTS ====
 import StateContext from './context/StateContext';
@@ -35,12 +36,16 @@ const App = () => {
       localStorage.setItem('socialappUserId', appState.user.userId);
       localStorage.setItem('socialappEmail', appState.user.userEmail);
       localStorage.setItem('socialappUsername', appState.user.username);
+      localStorage.setItem('socialappFollowing', appState.user.following);
+      localStorage.setItem('socialappFollowers', appState.user.followers);
     }
   }, [
     appState.loggedIn,
     appState.user.userId,
     appState.user.userEmail,
     appState.user.username,
+    appState.user.followers,
+    appState.user.following,
   ]);
 
   return (

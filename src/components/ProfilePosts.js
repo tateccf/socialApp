@@ -5,7 +5,7 @@ import { db } from '../firebase';
 import Spinner from './Spinner';
 
 const ProfilePosts = props => {
-  const { email, userId, userName } = props.user;
+  const { userEmail, userId, userName } = props.user;
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
 
@@ -43,7 +43,7 @@ const ProfilePosts = props => {
             <img
               alt="avatar"
               className="avatar-tiny"
-              src={gravatarUrl(email, { size: 200 })}
+              src={gravatarUrl(userEmail, { size: 200 })}
             />
             <strong>{post.title}</strong>
             <span className="text-muted small"> posted by {userName} </span>

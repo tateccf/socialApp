@@ -17,6 +17,7 @@ const HeaderLoggedIn = () => {
     e.preventDefault();
     appDispatch({ type: 'OPEN_SEARCH' });
   }
+
   return (
     <div className="flex-row my-3 my-md-0">
       <Link
