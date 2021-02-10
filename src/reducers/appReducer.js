@@ -5,15 +5,14 @@ const initialState = {
     userId: localStorage.getItem('socialappUserId'),
     username: localStorage.getItem('socialappUsername'),
     userEmail: localStorage.getItem('socialappEmail'),
-    followers: localStorage.getItem('socialappFollowers'),
-    following: localStorage.getItem('socialappFollowing'),
+    followers: JSON.parse(localStorage.getItem('socialappFollowers')) || [],
+    following: JSON.parse(localStorage.getItem('socialappFollowing')) || [],
   },
   isSearchOpen: false,
 };
 function appReducer(state, action) {
   switch (action.type) {
     case 'LOGIN':
-      console.log(action.payload);
       return {
         ...state,
         loggedIn: true,

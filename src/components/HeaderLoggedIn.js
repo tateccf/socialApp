@@ -10,6 +10,7 @@ const HeaderLoggedIn = () => {
   const appState = useContext(StateContext);
   //When clicking LogOut button, we set the loggedIn state to false and we clean the local Storage
   const handleLogOut = () => {
+    localStorage.clear();
     appDispatch({ type: 'LOGOUT' });
   };
 

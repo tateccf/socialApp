@@ -26,7 +26,7 @@ const HeaderLoggedOut = () => {
       );
 
       const user = await db.collection('users').doc(res.user.uid).get();
-      console.log(user.data());
+
       appDispatch({ type: 'LOGIN', payload: user.data() });
     } catch (err) {
       console.log(err.message);

@@ -44,8 +44,6 @@ const Profile = () => {
         followers: user.followers.filter(foll => foll !== appState.user.userId),
       }));
 
-      console.log('UNFOLLOW COMPLETED', user);
-
       //Update in DBthe following of the logged in account
       await db
         .collection('users')
@@ -60,7 +58,6 @@ const Profile = () => {
       };
 
       appDispatch({ type: 'UPDATE_PROFILE', payload: newState });
-      console.log('UNFOLLOW COMPLETED', newState);
     }
 
     stopFollowing();
@@ -170,15 +167,15 @@ const Profile = () => {
       </h2>
 
       <div className="profile-nav nav nav-tabs pt-2 mb-4">
-        <a to="#" className="active nav-item nav-link">
+        <div to={`/profile/${userEmail}`} className="nav-item nav-link">
           Posts
-        </a>
-        <a to="#" className="nav-item nav-link">
+        </div>
+        <div to={`/profile/${userEmail}/followers`} className="nav-item nav-link">
           Followers: {user.followers?.length}
-        </a>
-        <a to="#" className="nav-item nav-link">
+        </div>
+        <div to={`/profile/${userEmail}/following`} className="nav-item nav-link">
           Following: {user.following?.length}
-        </a>
+        </div>
       </div>
       {user.userId ? <ProfilePosts user={user} /> : <Spinner />}
     </Page>

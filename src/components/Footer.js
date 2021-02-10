@@ -18,10 +18,10 @@ const Footer = () => {
         </Link>
       </p>
       <p className="m-0">
-        Copyright &copy; 2021
-        <a href="/" className="text-muted">
+        Copyright &copy; {new Date().getFullYear()}{' '}
+        <Link to="/" className="text-muted">
           SocialApp
-        </a>
+        </Link>
         . All rights reserved.
       </p>
     </footer>

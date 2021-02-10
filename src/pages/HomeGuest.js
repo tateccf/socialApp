@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Page from '../components/Page';
 import { auth, db } from '../firebase';
+import DispatchContext from '../context/DispatchContext';
 
 const HomeGuest = () => {
+  const appDispatch = useContext(DispatchContext);
   // State of Email and Password
   const [inputsForm, setInputsForm] = useState({
     email: '',
@@ -36,8 +38,17 @@ const HomeGuest = () => {
         followers: [],
         following: [],
       });
+
+      //Show flash message
+      appDispatch({
+        type: 'ADD_FLASH_MESSAGE',
+        payload: 'Your account has been created. Use your credentials to log in.',
+      });
     } catch (err) {
-      console.log(err.message);
+      appDispatch({
+        type: 'ADD_FLASH_MESSAGE',
+        payload: err.message,
+      });
     }
     // Clear the form inputs
     setInputsForm({ email: '', password: '', username: '' });

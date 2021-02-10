@@ -61,9 +61,6 @@ const EditPost = () => {
         if (!res.exists) return setNotFound(true);
         const post = res.data();
 
-        console.log(post.createdBy);
-        console.log(appState.user.userId);
-
         // Check if the user who wants to edit the post is the owner of the post
         if (post.createdBy !== appState.user.userId) {
           //Render a flash message

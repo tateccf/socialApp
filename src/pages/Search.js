@@ -108,8 +108,6 @@ const Search = () => {
     });
   }
 
-  console.log(state.searchResults);
-
   return (
     <div className="search-overlay">
       <div className="search-overlay-top shadow-sm">
@@ -137,13 +135,13 @@ const Search = () => {
           <div
             className={
               'circle-loader ' +
-              (state.show == 'loading' ? 'circle-loader--visible' : '')
+              (state.show === 'loading' ? 'circle-loader--visible' : '')
             }
           ></div>
           <div
             className={
               'live-search-results ' +
-              (state.show == 'results' ? ' live-search-results--visible' : '')
+              (state.show === 'results' ? ' live-search-results--visible' : '')
             }
           >
             <div className="list-group shadow-sm">
