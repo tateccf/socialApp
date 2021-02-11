@@ -12,3 +12,7 @@ This app has been created to practice and train my frontEnd skills.
 - You can search for posts written by your or other users.
 - You can follow/unfollow other users.
 - When you are logged in, the homepage will be a feed that display the latest post from the people you follow.
+
+# Live Version
+
+You can checkout the live version here -> https://frandev-social-app.netlify.app/
