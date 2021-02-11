@@ -39,10 +39,23 @@ const HomeGuest = () => {
         following: [],
       });
 
+      //Login automatically
+      appDispatch({
+        type: 'LOGIN',
+        payload: {
+          userName: inputsForm.username,
+          userEmail: inputsForm.email,
+          userId: res.user.uid,
+          followers: [],
+          following: [],
+        },
+      });
+
       //Show flash message
       appDispatch({
         type: 'ADD_FLASH_MESSAGE',
-        payload: 'Your account has been created. Use your credentials to log in.',
+        payload:
+          'Your account has been created. You have been logged in automatically.',
       });
     } catch (err) {
       appDispatch({
@@ -58,7 +71,7 @@ const HomeGuest = () => {
     <Page wide={true} title="Home">
       <div className="row align-items-center">
         <div className="col-lg-7 py-3 py-md-5">
-          <h1 className="display-3">Remember Writing?</h1>
+          <h1 className="display-3">Welcome to SocialApp!</h1>
           <p className="lead text-muted">
             Are you sick of short tweets and impersonal &ldquo;shared&rdquo; posts
             that are reminiscent of the late 90&rsquo;s email forwards? We believe
@@ -116,7 +129,7 @@ const HomeGuest = () => {
               type="submit"
               className="py-3 mt-4 btn btn-lg btn-success btn-block"
             >
-              Sign up for ComplexApp
+              Sign up for SocialApp!
             </button>
           </form>
         </div>

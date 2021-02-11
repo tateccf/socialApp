@@ -8,7 +8,7 @@ import StateContext from '../context/StateContext';
 
 const Home = () => {
   const appState = useContext(StateContext);
-  const [isLoading, setIsLoading] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [feed, setFeed] = useState([]);
 
   useEffect(() => {
@@ -52,11 +52,20 @@ const Home = () => {
     ));
   }
 
-  if (isLoading) return <Spinner />;
+  function whatToRender() {
+    if (feed.length != 0) {
+      return (
+        <div className="list-group">
+          <>
+            <h2 className="text-center mb-4">The Latest From Those You Follow</h2>
+            {renderFeedPosts()}
+          </>
+        </div>
+      );
+    }
 
-  return (
-    <Page title="Your feed">
-      {feed.length === 0 && (
+    if (feed.length == 0) {
+      return (
         <>
           <h2 className="text-center">
             Hello <strong>{appState.user.username}</strong>, your feed is empty.
@@ -68,17 +77,17 @@ const Home = () => {
             by people with similar interests and then follow them.
           </p>
         </>
-      )}
-      {feed.length > 1 && (
-        <div className="list-group">
-          {
-            <>
-              <h2 className="text-center mb-4">The Latest From Those You Follow</h2>
-              {renderFeedPosts()}
-            </>
-          }
-        </div>
-      )}
+      );
+    }
+    if (isLoading) return <Spinner />;
+  }
+
+  console.log(feed.length);
+  console.log(isLoading);
+  console.log(feed);
+  return (
+    <Page title="Your feed">
+      <>{whatToRender()}</>
     </Page>
   );
 };
